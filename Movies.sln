@@ -1,0 +1,48 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32929.385
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Accounts", "Accounts", "{7F56A589-F723-4DB4-B650-6BF3B089A589}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Movies.Accounts.Api", "Movies.Accounts.Api\Movies.Accounts.Api.csproj", "{795E91C0-FDC9-42D5-BF6E-FF3310EB457E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Movies", "Movies", "{034BBB75-161D-430A-A373-E2FFBA7E18EC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Movies.Client.Api", "Movies.Client.Api\Movies.Client.Api.csproj", "{49760039-6FA3-4565-8BCF-8636592D3BEF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DbFillerApp", "DbFillerApp", "{18231668-7200-4A54-A0F6-37E656D243D3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DbFillerApp", "DbFillerApp\DbFillerApp.csproj", "{0283D0E5-9C14-4242-A68C-11F1F9C27094}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{795E91C0-FDC9-42D5-BF6E-FF3310EB457E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{795E91C0-FDC9-42D5-BF6E-FF3310EB457E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{795E91C0-FDC9-42D5-BF6E-FF3310EB457E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{795E91C0-FDC9-42D5-BF6E-FF3310EB457E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{49760039-6FA3-4565-8BCF-8636592D3BEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49760039-6FA3-4565-8BCF-8636592D3BEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49760039-6FA3-4565-8BCF-8636592D3BEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49760039-6FA3-4565-8BCF-8636592D3BEF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0283D0E5-9C14-4242-A68C-11F1F9C27094}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0283D0E5-9C14-4242-A68C-11F1F9C27094}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0283D0E5-9C14-4242-A68C-11F1F9C27094}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0283D0E5-9C14-4242-A68C-11F1F9C27094}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{795E91C0-FDC9-42D5-BF6E-FF3310EB457E} = {7F56A589-F723-4DB4-B650-6BF3B089A589}
+		{49760039-6FA3-4565-8BCF-8636592D3BEF} = {034BBB75-161D-430A-A373-E2FFBA7E18EC}
+		{0283D0E5-9C14-4242-A68C-11F1F9C27094} = {18231668-7200-4A54-A0F6-37E656D243D3}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8CC3E7DF-A6BC-4675-9586-D9FA32714A0A}
+	EndGlobalSection
+EndGlobal
