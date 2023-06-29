@@ -15,6 +15,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DbFillerApp", "DbFillerApp"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DbFillerApp", "DbFillerApp\DbFillerApp.csproj", "{0283D0E5-9C14-4242-A68C-11F1F9C27094}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Movies.Admin.Api", "Movies.Admin.Api\Movies.Admin.Api.csproj", "{2712C942-F782-4057-8AE8-653B69997C77}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{0283D0E5-9C14-4242-A68C-11F1F9C27094}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0283D0E5-9C14-4242-A68C-11F1F9C27094}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0283D0E5-9C14-4242-A68C-11F1F9C27094}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2712C942-F782-4057-8AE8-653B69997C77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2712C942-F782-4057-8AE8-653B69997C77}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2712C942-F782-4057-8AE8-653B69997C77}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2712C942-F782-4057-8AE8-653B69997C77}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -41,6 +47,7 @@ Global
 		{795E91C0-FDC9-42D5-BF6E-FF3310EB457E} = {7F56A589-F723-4DB4-B650-6BF3B089A589}
 		{49760039-6FA3-4565-8BCF-8636592D3BEF} = {034BBB75-161D-430A-A373-E2FFBA7E18EC}
 		{0283D0E5-9C14-4242-A68C-11F1F9C27094} = {18231668-7200-4A54-A0F6-37E656D243D3}
+		{2712C942-F782-4057-8AE8-653B69997C77} = {034BBB75-161D-430A-A373-E2FFBA7E18EC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8CC3E7DF-A6BC-4675-9586-D9FA32714A0A}

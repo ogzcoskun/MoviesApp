@@ -4,7 +4,7 @@
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <UserSecretsId>86363809-dfbb-4ad7-87b3-9253016cbf2c</UserSecretsId>
+    <UserSecretsId>97b9cf28-e4a8-40f9-8e0b-5b599aaf49f3</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
   </PropertyGroup>
 
@@ -12,8 +12,6 @@
     <PackageReference Include="DotNetCore.CAP" Version="6.2.1" />
     <PackageReference Include="DotNetCore.CAP.RabbitMQ" Version="6.2.1" />
     <PackageReference Include="DotNetCore.CAP.SqlServer" Version="6.2.1" />
-    <PackageReference Include="MediatR" Version="12.0.1" />
-    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.19" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.19" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.19" />
@@ -26,11 +24,6 @@
     <PackageReference Include="MongoDB.Driver" Version="2.20.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Commands\" />
-    <Folder Include="Queries\" />
   </ItemGroup>
 
 </Project>

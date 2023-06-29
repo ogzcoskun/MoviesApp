@@ -112,7 +112,7 @@ namespace Movies.Accounts.Api.Services.TokenGenerator
         /// <returns></returns>
         private TokenInfo GenerateToken()
         {
-            DateTime expireDate = DateTime.Now.AddSeconds(50);
+            DateTime expireDate = DateTime.Now.AddHours(2);
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_config["Application:Secret"]);
 

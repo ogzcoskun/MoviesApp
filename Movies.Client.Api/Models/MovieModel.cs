@@ -9,6 +9,7 @@ namespace Movies.Client.Api.Models
         public string RelaseYear { get; set; }
         public string Caption { get; set; }
         public string ImageUrl { get; set; }
+
         [Range(0, 10)]
         public int Rating { get; set; }
         public int RatingCount { get; set; }

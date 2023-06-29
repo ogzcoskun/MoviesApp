@@ -58,8 +58,6 @@ builder.Services.AddCap(x =>
     x.UseEntityFramework<AccountsDbContext>();
 
     x.UseSqlServer(connectionString);
-
-
 });
 
 builder.Services.AddAuthentication(options =>
