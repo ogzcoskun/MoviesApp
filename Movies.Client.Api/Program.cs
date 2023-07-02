@@ -9,6 +9,8 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
+Thread.Sleep(4000);
+
 // Add services to the container.
 
 builder.Services.AddControllers();

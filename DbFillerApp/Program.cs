@@ -7,7 +7,7 @@ using DbFillerApp.Data;
 
 var service = new MovieServices();
 
-
+Thread.Sleep(7000);
 
 GlobalConfiguration.Configuration
     .SetDataCompatibilityLevel(CompatibilityLevel.Version_170)

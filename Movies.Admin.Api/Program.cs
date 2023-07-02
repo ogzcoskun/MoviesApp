@@ -9,6 +9,9 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
+Thread.Sleep(7000);
+
+
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -76,14 +79,14 @@ app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
-try
-{
-    Seeder.Seed(app.Services).Wait();
-}
-catch
-{
+//try
+//{
+//    Seeder.Seed(app.Services).Wait();
+//}
+//catch
+//{
 
-}
+//}
 
 
 
