@@ -88,3 +88,5 @@ Client.Api 5 tane Endpoint barındırıyor. Yukarıda elde ettiğimiz token ile 
   toEmail: string  ,   movieId: string ,  personalMessage: string
 
 - GetMyRecommendations: Herhangi bir Parametre almaz. Kullanıcının yapmış olduğu paylaşımları Redis üzerinden çeker ve kullanıcıya iletir.
+
+Not: Proje için Test Mongo Db Atlas hesabı ve Test Gmail hesabı açarak test edilebilmesi için projenin içinde bıraktım ve Ip adresini erişebilir kıldım. 
