@@ -16,6 +16,7 @@
             this.PageSize = pageSize;
             this.Data = data;
             this.Message = null;
+            this.Success = false;
         }
     }
 }

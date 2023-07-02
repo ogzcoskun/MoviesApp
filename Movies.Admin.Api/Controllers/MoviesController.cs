@@ -19,5 +19,15 @@ namespace Movies.Admin.Api.Controllers
             _moviesServices = moviesServices;
         }
 
+        //[HttpPost]
+        //public async Task<IActionResult> TestEmail(UserModel user)
+        //{
+
+        //    var response = await _moviesServices.SendEmail(user);
+
+
+        //    return Ok(response);
+        //}
+
     }
 }

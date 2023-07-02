@@ -119,6 +119,15 @@ app.UseAuthentication();
 
 app.UseAuthorization();
 
+try
+{
+    Seeder.Seed(app.Services).Wait();
+}
+catch
+{
+
+}
+
 app.MapControllers();
 
 app.Run();

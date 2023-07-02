@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Movies.Admin.Api.Config;
 using Movies.Admin.Api.Data;
 using Movies.Admin.Api.Events.RecieveEvents;
 using Movies.Admin.Api.Models;
@@ -14,6 +15,12 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+
+var emailConfig = builder.Configuration
+        .GetSection("EmailConfiguration")
+        .Get<EmailConfiguration>();
+builder.Services.AddSingleton(emailConfig);
 
 
 builder.Services.AddTransient<IRecieveEvents, RecieveEvents>();
@@ -68,6 +75,17 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+try
+{
+    Seeder.Seed(app.Services).Wait();
+}
+catch
+{
+
+}
+
+
 
 app.MapControllers();
 

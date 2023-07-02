@@ -131,7 +131,16 @@ app.UseAuthentication();
 app.UseRouting();
 app.UseAuthorization();
 
-Seeder.Seed(app.Services).Wait();
+
+try
+{
+    Seeder.Seed(app.Services).Wait();
+}
+catch
+{
+
+}
+
 
 app.MapControllers();
 

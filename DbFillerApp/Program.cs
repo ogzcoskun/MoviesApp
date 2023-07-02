@@ -14,7 +14,7 @@ GlobalConfiguration.Configuration
     .UseColouredConsoleLogProvider()
     .UseSimpleAssemblyNameTypeSerializer()
     .UseRecommendedSerializerSettings()
-    .UseSqlServerStorage("Server= localhost;Database=MoviesDb;Trusted_Connection=True;MultipleActiveResultSets=true", new SqlServerStorageOptions
+    .UseSqlServerStorage("Server= localhost;Database=MoviesDb2;Trusted_Connection=True;MultipleActiveResultSets=true", new SqlServerStorageOptions
     {
         CommandBatchMaxTimeout = TimeSpan.FromSeconds(5),
         SlidingInvisibilityTimeout = TimeSpan.FromSeconds(5),

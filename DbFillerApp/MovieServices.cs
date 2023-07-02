@@ -63,7 +63,7 @@ namespace DbFillerApp
             var movies = GetRandomMovies();
 
             var DbOptions = new DbContextOptionsBuilder<MoviesDbContext>()
-            .UseSqlServer("Server= localhost;Database=MoviesDb;Trusted_Connection=True;MultipleActiveResultSets=true")
+            .UseSqlServer("Server= localhost;Database=MoviesDb2;Trusted_Connection=True;MultipleActiveResultSets=true")
             .Options;
             using (var DbContext = new MoviesDbContext(DbOptions))
             {

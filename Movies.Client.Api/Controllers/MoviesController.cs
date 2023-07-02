@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Movies.Client.Api.Config;
 using Movies.Client.Api.Models;
 using Movies.Client.Api.Models.Reviews;
 using Movies.Client.Api.Services;
@@ -21,9 +22,33 @@ namespace Movies.Client.Api.Controllers
             _service = service;
         }
 
-        [HttpPost]
-        public async Task<IActionResult> PostComment(ReviewModel review)
+
+        [HttpGet]
+        public async Task<IActionResult> GetAllMoviesPaged([FromQuery] PaginationFilter filter)
         {
+            try
+            {
+
+                var response = await _service.GetAllMovies(filter);
+
+                return Ok(response);
+
+            }catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> PostComment(PostReviewModel postReview)
+        {
+
+            var review = new ReviewModel()
+            {
+                MovieId = postReview.MovieId,
+                Rating = postReview.Rating,
+                Comment = postReview.Comment,
+            };
 
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 

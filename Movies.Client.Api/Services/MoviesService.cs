@@ -1,6 +1,8 @@
 ﻿using DotNetCore.CAP;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MongoDB.Driver;
+using Movies.Client.Api.Config;
 using Movies.Client.Api.Data;
 using Movies.Client.Api.Models;
 using Movies.Client.Api.Models.Responses;
@@ -31,6 +33,21 @@ namespace Movies.Client.Api.Services
             _capPublisher = capPublisher;
         }
 
+        public async Task<PagedResponse<List<MovieModel>>> GetAllMovies(PaginationFilter filter)
+        {
+            var validFilter = new PaginationFilter(filter.PageNumber, filter.PageSize);
+            var pagedData = await _sqlContext.Movies
+                .Skip((validFilter.PageNumber - 1) * validFilter.PageSize)
+                .Take(validFilter.PageSize)
+                .ToListAsync();
+            var totalRecords = await _sqlContext.Movies.CountAsync();
+
+            var response = new PagedResponse<List<MovieModel>>(pagedData, validFilter.PageNumber, validFilter.PageSize);
+
+            response.Success = true;
+
+            return response;
+        }
 
         public async Task<ServiceResponse<ReviewModel>> AddComment(string userId, ReviewModel review)
         {

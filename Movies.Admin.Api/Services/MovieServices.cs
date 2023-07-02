@@ -1,19 +1,27 @@
-﻿using MongoDB.Driver;
+﻿using MailKit.Security;
+using MimeKit.Text;
+using MimeKit;
+using MongoDB.Driver;
 using Movies.Admin.Api.Models;
 using Movies.Admin.Api.Models.ReviewModels;
+using MailKit.Net.Smtp;
+using Movies.Admin.Api.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace Movies.Admin.Api.Services
 {
     public class MovieServices : IMovieServices
     {
         private readonly IConfiguration _config;
+        private readonly AccountsDbContext _context;
 
         public MongoClient Client { get; }
         public IMongoDatabase DB { get; }
 
-        public MovieServices(IConfiguration config)
+        public MovieServices(IConfiguration config, AccountsDbContext context)
         {
             _config = config;
+            _context = context;
 
             Client = new MongoClient(_config["MongoDbKey"]);
             DB = Client.GetDatabase("MoviesCluster");
@@ -52,7 +60,45 @@ namespace Movies.Admin.Api.Services
             }
         }
 
-        
+        public async Task<ServiceResponse<string>> SendEmail(RecommendMovieModel recommendation)
+        {
+            try
+            {
+
+                var user = _context.Users.Find(recommendation.UserId);
+                var movie = _context.Movies.Find(recommendation.MovieId);
+
+
+                var subject = $"Your Friends {user.UserName} recommeded a movie to you!!!";
+                var body = $"Personal Message: {recommendation.PersonalMessage} \nTitle: {movie.Title} -- Relase Year: {movie.RelaseYear} --Image: {movie.ImageUrl} ";
+
+                var emailToSend = new MimeMessage();
+                emailToSend.From.Add(MailboxAddress.Parse(_config["EmailConfiguration:From"]));
+                emailToSend.To.Add(MailboxAddress.Parse(recommendation.ToEmail));
+                emailToSend.Subject = subject;
+                emailToSend.Body = new TextPart(TextFormat.Plain) { Text = body };
+
+                using var smtp = new SmtpClient();
+                smtp.Connect("smtp.gmail.com", 465, true);
+                smtp.Authenticate(_config["EmailConfiguration:From"], _config["EmailConfiguration:Password"]);
+                smtp.Send(emailToSend);
+                smtp.Disconnect(true);
+
+                return new ServiceResponse<string>()
+                {
+                    Success =true,
+                };
+
+            }catch(Exception ex)
+            {
+                return new ServiceResponse<string>()
+                {
+                    Success =false,
+                    Message = ex.Message,
+                };
+
+            }
+        }
     }
 }
 

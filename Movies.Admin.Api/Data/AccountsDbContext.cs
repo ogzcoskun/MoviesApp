@@ -15,7 +15,7 @@ namespace Movies.Admin.Api.Data
         }
 
         //public DbSet<UserTokenModel> ApplicationUserTokens { get; set; }
-
+        public DbSet<MovieModel> Movies { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder builder)

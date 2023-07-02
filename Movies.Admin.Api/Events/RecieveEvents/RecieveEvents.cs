@@ -28,7 +28,7 @@ namespace Movies.Admin.Api.Events.RecieveEvents
         {
             var recommendationModel = JsonConvert.DeserializeObject<RecommendMovieModel>(recommendation);
 
-            var test = recommendationModel;
+            var recommend = await _movieService.SendEmail(recommendationModel);
 
             //await _movieService.CreateUser(user);
 

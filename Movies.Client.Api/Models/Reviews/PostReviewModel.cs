@@ -2,9 +2,8 @@
 
 namespace Movies.Client.Api.Models.Reviews
 {
-    public class ReviewModel
+    public class PostReviewModel
     {
-        public string ReviewId { get; set; }
         public string MovieId { get; set; }
         [Range(0, 10)]
         public int Rating { get; set; }
