@@ -7,6 +7,7 @@ using Movies.Admin.Api.Models.ReviewModels;
 using MailKit.Net.Smtp;
 using Movies.Admin.Api.Data;
 using Microsoft.EntityFrameworkCore;
+using Movies.Admin.Api.Services.CacheServices;
 
 namespace Movies.Admin.Api.Services
 {
@@ -18,13 +19,17 @@ namespace Movies.Admin.Api.Services
         public MongoClient Client { get; }
         public IMongoDatabase DB { get; }
 
-        public MovieServices(IConfiguration config, AccountsDbContext context)
+        private readonly ICacheService _cacheService;
+
+        public MovieServices(IConfiguration config, AccountsDbContext context, ICacheService cacheService)
         {
             _config = config;
             _context = context;
 
             Client = new MongoClient(_config["MongoDbKey"]);
             DB = Client.GetDatabase("MoviesCluster");
+
+            _cacheService = cacheService;
         }
 
         public async Task<ServiceResponse<UserReviewsModel>> CreateUser(UserModel user)
@@ -83,6 +88,11 @@ namespace Movies.Admin.Api.Services
                 smtp.Authenticate(_config["EmailConfiguration:From"], _config["EmailConfiguration:Password"]);
                 smtp.Send(emailToSend);
                 smtp.Disconnect(true);
+
+
+                //Cache EMail
+                await _cacheService.SetRecommendation(recommendation);
+
 
                 return new ServiceResponse<string>()
                 {

@@ -1,10 +1,13 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Movies.Admin.Api.Config;
 using Movies.Admin.Api.Data;
 using Movies.Admin.Api.Events.RecieveEvents;
 using Movies.Admin.Api.Models;
 using Movies.Admin.Api.Services;
+using Movies.Admin.Api.Services.CacheServices;
+using StackExchange.Redis;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,13 +22,16 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+var multiplexer = ConnectionMultiplexer.Connect(builder.Configuration.GetConnectionString("Redis"));
+builder.Services.AddSingleton<IConnectionMultiplexer>(multiplexer);
+
 
 var emailConfig = builder.Configuration
         .GetSection("EmailConfiguration")
         .Get<EmailConfiguration>();
 builder.Services.AddSingleton(emailConfig);
 
-
+builder.Services.AddTransient<ICacheService, CacheService>();
 builder.Services.AddTransient<IRecieveEvents, RecieveEvents>();
 builder.Services.AddTransient<IMovieServices, MovieServices>();
 

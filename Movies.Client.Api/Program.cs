@@ -5,6 +5,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Movies.Client.Api.Data;
 using Movies.Client.Api.Services;
+using StackExchange.Redis;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,7 +23,8 @@ builder.Services.AddTransient<IMoviesService, MoviesService>();
 
 string connectionString = builder.Configuration.GetConnectionString("Connection");
 
-
+var multiplexer = ConnectionMultiplexer.Connect(builder.Configuration.GetConnectionString("Redis"));
+builder.Services.AddSingleton<IConnectionMultiplexer>(multiplexer);
 
 builder.Services.AddDbContext<MoviesDbContext>(options =>
                                                 options.UseSqlServer(connectionString));

@@ -140,5 +140,30 @@ namespace Movies.Client.Api.Controllers
             }
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetMyRecommendatins()
+        {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            if (userId == null)
+            {
+                return Unauthorized();
+            }
+
+            try
+            {
+
+                var response = await _service.GetRecommendations(userId);
+
+                return Ok(response);
+
+
+            }catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+        }
+
     }
 }

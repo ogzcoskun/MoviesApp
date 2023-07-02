@@ -1,4 +1,5 @@
-﻿using DotNetCore.CAP;
+﻿using Amazon.Runtime.Internal.Util;
+using DotNetCore.CAP;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MongoDB.Driver;
@@ -8,6 +9,7 @@ using Movies.Client.Api.Models;
 using Movies.Client.Api.Models.Responses;
 using Movies.Client.Api.Models.Reviews;
 using Newtonsoft.Json;
+using StackExchange.Redis;
 
 namespace Movies.Client.Api.Services
 {
@@ -16,12 +18,15 @@ namespace Movies.Client.Api.Services
         private readonly MoviesDbContext _sqlContext;
         private readonly IConfiguration _config;
 
+        private readonly IConnectionMultiplexer _redisCon;
+        private readonly IDatabase _cache;
+
         public MongoClient Client { get; }
         public IMongoDatabase DB { get; }
 
         private readonly ICapPublisher _capPublisher;
 
-        public MoviesService(MoviesDbContext sqlContext, IConfiguration config, ICapPublisher capPublisher)
+        public MoviesService(MoviesDbContext sqlContext, IConfiguration config, ICapPublisher capPublisher, IConnectionMultiplexer redisCon)
         {
             _sqlContext = sqlContext;
 
@@ -31,6 +36,9 @@ namespace Movies.Client.Api.Services
             DB = Client.GetDatabase("MoviesCluster");
 
             _capPublisher = capPublisher;
+
+            _redisCon = redisCon;
+            _cache = redisCon.GetDatabase();
         }
 
         public async Task<PagedResponse<List<MovieModel>>> GetAllMovies(PaginationFilter filter)
@@ -236,7 +244,46 @@ namespace Movies.Client.Api.Services
                     Message = ex.Message
                 };
             }
-        } 
+        }
+
+
+        public async Task<ServiceResponse<List<RecommendMovieModel>>> GetRecommendations(string userId)
+        {
+            try
+            {
+
+                var userMails = await _cache.StringGetAsync(userId);
+
+                if (userMails.HasValue == false)
+                {
+                    return new ServiceResponse<List<RecommendMovieModel>>()
+                    {
+                        Success = true,
+                        Message = "User has not recommend a movie yet!!!"
+                    };
+                }
+
+
+                var recommList = JsonConvert.DeserializeObject<List<RecommendMovieModel>>(userMails);
+
+
+                return new ServiceResponse<List<RecommendMovieModel>>()
+                {
+                    Success = true,
+                    Message = "User Recommendations...",
+                    Data = recommList
+                };
+
+            }
+            catch (Exception ex)
+            {
+                return new ServiceResponse<List<RecommendMovieModel>>()
+                {
+                    Success = false,
+                    Message = ex.Message
+                };
+            }
+        }
 
 
 
