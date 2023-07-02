@@ -145,7 +145,7 @@ namespace Movies.Client.Api.Services
                 int rating;
                 string comment;
 
-                if(review.MovieId == null)
+                if(review == null)
                 {
                     rating = 0;
                     comment = "";

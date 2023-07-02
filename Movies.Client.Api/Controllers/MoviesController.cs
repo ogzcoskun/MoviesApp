@@ -141,7 +141,7 @@ namespace Movies.Client.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetMyRecommendatins()
+        public async Task<IActionResult> GetMyRecommendations()
         {
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
