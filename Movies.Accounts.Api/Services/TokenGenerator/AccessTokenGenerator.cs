@@ -14,13 +14,6 @@ namespace Movies.Accounts.Api.Services.TokenGenerator
         public IConfiguration _config { get; set; }
         public UserModel _applicationUser { get; set; }
 
-        /// <summary>
-        /// Class'ın oluşturulması.
-        /// </summary>
-        /// <param name="_context"></param>
-        /// <param name="_config"></param>
-        /// <param name="_applicationUser"></param>
-        /// <returns></returns>
         public AccessTokenGenerator(AccountsDbContext context,
                                     IConfiguration config,
                                     UserModel applicationUser)
@@ -30,25 +23,22 @@ namespace Movies.Accounts.Api.Services.TokenGenerator
             _applicationUser = applicationUser;
         }
 
-        /// <summary>
-        /// Kullanıcı üzerinde tanımlı tokenı döner;Token yoksa oluşturur. Expire olmuşsa update eder.
-        /// </summary>
-        /// <returns></returns>
+
         public UserTokenModel GetToken()
         {
             UserTokenModel userTokens = null;
             TokenInfo tokenInfo = null;
 
-            //Kullanıcıya ait önceden oluşturulmuş bir token var mı kontrol edilir.
+            
             if (_context.ApplicationUserTokens.Count(x => x.UserId == _applicationUser.Id) > 0)
             {
-                //İlgili token bilgileri bulunur.
+                
                 userTokens = _context.ApplicationUserTokens.FirstOrDefault(x => x.UserId == _applicationUser.Id);
 
-                //Expire olmuş ise yeni token oluşturup günceller.
+                
                 if (userTokens.ExpireDate <= DateTime.Now)
                 {
-                    //Create new token
+                    
                     tokenInfo = GenerateToken();
 
                     userTokens.ExpireDate = tokenInfo.ExpireDate;
@@ -59,7 +49,7 @@ namespace Movies.Accounts.Api.Services.TokenGenerator
             }
             else
             {
-                //Create new token
+                
                 tokenInfo = GenerateToken();
 
                 userTokens = new UserTokenModel();
@@ -78,17 +68,14 @@ namespace Movies.Accounts.Api.Services.TokenGenerator
             return userTokens;
         }
 
-        /// <summary>
-        /// Kullanıcıya ait tokenı siler.
-        /// </summary>
-        /// <returns></returns>
+
         public async Task<bool> DeleteToken()
         {
             bool ret = true;
 
             try
             {
-                //Kullanıcıya ait önceden oluşturulmuş bir token var mı kontrol edilir.
+                
                 if (_context.ApplicationUserTokens.Count(x => x.UserId == _applicationUser.Id) > 0)
                 {
                     UserTokenModel userTokens = userTokens = _context.ApplicationUserTokens.FirstOrDefault(x => x.UserId == _applicationUser.Id);
@@ -106,10 +93,7 @@ namespace Movies.Accounts.Api.Services.TokenGenerator
             return ret;
         }
 
-        /// <summary>
-        /// Yeni token oluşturur.
-        /// </summary>
-        /// <returns></returns>
+
         private TokenInfo GenerateToken()
         {
             DateTime expireDate = DateTime.Now.AddHours(2);
@@ -122,17 +106,16 @@ namespace Movies.Accounts.Api.Services.TokenGenerator
                 Issuer = _config["Application:Issuer"],
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    //Claim tanımları yapılır. Burada en önemlisi Id ve emaildir.
-                    //Id üzerinden, aktif kullanıcıyı buluyor olacağız.
+ 
                     new Claim(ClaimTypes.NameIdentifier, _applicationUser.Id),
                     new Claim(ClaimTypes.Name, _applicationUser.UserName),
                     new Claim(ClaimTypes.Email, _applicationUser.Email)
                 }),
 
-                //ExpireDate
+
                 Expires = expireDate,
 
-                //Şifreleme türünü belirtiyoruz: HmacSha256Signature
+ 
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
 
